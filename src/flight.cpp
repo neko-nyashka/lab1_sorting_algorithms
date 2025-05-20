@@ -46,7 +46,7 @@ bool Flight::operator>=(const Flight& other) const {
     if (arrival_date != other.arrival_date) return arrival_date > other.arrival_date;
     if (arrival_time != other.arrival_time) return arrival_time > other.arrival_time;
     if (airline != other.airline) return airline > other.airline;
-    return passengers <= other.passengers;  
+    return passengers >= other.passengers;  
 }
 
 bool Flight::operator<(const Flight& other) const {
