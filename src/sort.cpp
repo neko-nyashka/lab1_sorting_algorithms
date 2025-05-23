@@ -25,7 +25,6 @@ void parseCSV(std::string filename, int N, Flight* result) {
 
     if (in.is_open()) {
         while (std::getline(in, line) && i < N) {
-            // Locate the positions of commas to separate CSV fields
             for (int i = 0; i < (int)line.size(); i++) {
                 if (line[i] == ',') {
                     if (i1 == 0) i1 = i;
@@ -34,21 +33,17 @@ void parseCSV(std::string filename, int N, Flight* result) {
                     else if (i4 == 0) i4 = i;
                 }
             }
-
-            // Extract fields using the comma positions
             flight_number_ = line.substr(0, i1);
             airline_ = line.substr(i1 + 1, i2 - i1 - 1);
             arrival_date_ = line.substr(i2 + 1, i3 - i2 - 1);
             arrival_time_ = line.substr(i3 + 1, i4 - i3 - 1);
             passengers_ = std::stoi(line.substr(i4 + 1, line.size() - i4 - 2));
 
-            // Reset comma position trackers for the next line
             i1 = 0;
             i2 = 0;
             i3 = 0;
             i4 = 0;
 
-            // Create a Flight object and store it in the result array
             Flight f(flight_number_, airline_, arrival_date_, arrival_time_, passengers_);
             result[i++] = f;
         }
@@ -83,13 +78,13 @@ void bubbleSort(T* a, int N) {
  */
 template<class T>
 void shakerSort(T* a, int N) {
-    int lb = 0;         // Lower bound
-    int ub = N - 1;     // Upper bound
-    int k;              // Tracks the last swap position
+    int lb = 0;         
+    int ub = N - 1;     
+    int k;             
 
     do {
         k = 0;
-        // Pass from right to left
+
         for (int j = ub; j > lb; --j) {
             if (a[j - 1] < a[j]) {
                 std::swap(a[j - 1], a[j]);
@@ -98,7 +93,7 @@ void shakerSort(T* a, int N) {
         }
         lb = k;
 
-        // Pass from left to right
+
         for (int j = lb; j < ub; ++j) {
             if (a[j] < a[j + 1]) {
                 std::swap(a[j], a[j + 1]);
@@ -118,10 +113,10 @@ void shakerSort(T* a, int N) {
  */
 template<class T>
 void quickSort(T* a, long N) {
-    long i = 0, j = N - 1;      // Initialize bounds
-    T p = a[N >> 1];            // Pivot: middle element
+    long i = 0, j = N - 1;      
+    T p = a[N >> 1];            
 
-    // Partitioning phase
+
     do {
         while (i < N && a[i] > p) i++;
         while (j >= 0 && a[j] < p) j--;
@@ -133,7 +128,7 @@ void quickSort(T* a, long N) {
         }
     } while (i <= j);
 
-    // Recursively sort the partitions
+   
     if (j > 0) quickSort(a, j + 1);
     if (N > i) quickSort(a + i, N - i);
 }
